@@ -1,36 +1,40 @@
 <template>
 <div>
   <md-dialog :md-active.sync="showDialog">
-    <md-dialog-title>Modify a product!</md-dialog-title>
+    <md-dialog-title>Modify a User!</md-dialog-title>
       <md-dialog-content class="interiorDia"> 
 
         <form id="createProduct"  @submit="clickHandler">
             <md-field>
-              <label>Product Name</label>
+              <label>Username</label>
               <md-input required v-model="named"></md-input>
             </md-field>
 
             <md-field>
-              <label>Product Description</label>
-              <md-textarea required v-model="descd"></md-textarea>
+              <label>EmailAddress</label>
+              <md-input required v-model="email"></md-input>
             </md-field> 
 
             <md-field>
-          <label>Product Price</label>
-          <md-input required v-model="priced"></md-input>
+          <label>Password</label>
+          <md-input required v-model="pass" type="password"></md-input>
             </md-field>
 
             <md-field>
-          <label>Product Image URL</label>
-          <md-input v-model="imaged"></md-input> 
+          <label>social security</label>
+          <md-input v-model="social"></md-input> 
           </md-field>
 
            <md-field>
-                <label for="category">Categories</label>
-                <md-select v-model="category" name="category" id="category" multiple>
-                  <md-option value="Food">Food</md-option>
-                  <md-option value="Mayo">Mayo</md-option>
-                  <md-option value="Cats">Cats</md-option>
+          <label>Mother's Maiden</label>
+          <md-input v-model="mothersmaiden"></md-input> 
+          </md-field>
+
+           <md-field>
+                <label for="roles">User Roles</label>
+                <md-select v-model="roles" name="roles" id="roles" multiple>
+                  <md-option id="adminrole" value="admin">Admin</md-option>
+                  <md-option id="userrole" value="user">User</md-option>
                 </md-select>
            </md-field>
 
@@ -51,34 +55,37 @@
 </template>
 
 <script>
-import { API_URL } from '../main.js'
+import { API_URL } from '../../main.js'
 export default {
   name: 'UpdateCard',
     props: {
-    product: Object,
+    user: Object,
   },
-  data() { return({ 
+  data() { return{ 
     showDialog: false,
-    named:this.product.name,
-    descd:this.product.desc,
-    priced:this.product.price,
-    imaged:this.product.img,
-    category:this.product.category})
+    named:this.user.username,
+    email:this.user.emailaddress,
+    pass:this.user.password,
+    social:this.user.social,
+    mothersmaiden:this.user.mothersmaiden,
+    roles:this.user.roles
+    }
   },
   methods: {
    async clickHandler() {
-        const myURL = `${API_URL}/products/${this.product._id}`
+        const myURL = `${API_URL}/users/${this.user._id}`
         const reqContent = {
           method: "PUT",
           headers: {"Content-Type": "application/json; charset=utf-8"},
-          body: JSON.stringify({name: this.named, 
-                                desc: this.descd, 
-                                price: this.priced, 
-                                img: this.imaged,
-                                category: this.category})
+          body: JSON.stringify({username: this.named, 
+                                emailaddress: this.email, 
+                                password: this.pass, 
+                                socialsecurity: this.social,
+                                mothersmaiden:this.mothersmaiden,
+                                roles:this.roles})
         }
         let theReq = new Request(myURL, reqContent)
-       await fetch(theReq) 
+     await fetch(theReq) 
             .then(res => {return res.json()})
             .then ( res => {
               res})

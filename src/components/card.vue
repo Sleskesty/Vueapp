@@ -10,7 +10,6 @@
                 <md-card-media>
           <img v-bind:src="name.img"> 
         </md-card-media>
-      </md-card-header>
 
         <md-card-content>
             {{name.desc}}
@@ -21,6 +20,7 @@
         </md-card-actions>
       </md-ripple>
     </md-card>
+    
     </div>
 </template>
 
@@ -44,8 +44,13 @@ export default {
   }
   .md-card {
     width: 320px;
-    margin: 4px;
+    height: 470px;
+    margin: 10px;
     display: inline-block;
     vertical-align: top;
+  }
+  img {
+    height: 15em;
+    width: 100%;
   }
   </style>

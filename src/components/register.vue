@@ -1,21 +1,39 @@
 <template>
   <div class="centered-container">
 
-    <div class="title">
-      <div class="md-title"></div>
-      Registration Form
-      </div>
-    <div class="content">
-      <form name="contact">
-
-        <input class="form-field" v-model="user" name="name" id="userName" placeholder="User Name" required /><br/>
-        <input class="form-field" v-model="password" name="password" id="password" placeholder="Password" required /><br/>
-
-        <input class="form-field" v-model="email" name="email" id="email" type="email" placeholder="Email Address" required /><span class="fa fa-envelope"></span><br/>
-        <button @click="clickHandler">Register</button>
-      </form>
-      {{this.response.msg}}
-    </div>
+    <form novalidate class="md-layout md-alignment-center-center" @submit="clickHandler">
+      <md-card class="md-layout-item md-size-50 md-small-size-100">
+        <md-card-header>
+          <div class="md-title">User Registration</div>
+        </md-card-header>
+                <md-card-content>
+          <div class="md-layout md-gutter">
+            <div class="md-layout-item md-small-size-100">
+              <md-field >
+                <label for="first-name">Username</label>
+                <md-input name="first-name" id="first-name" v-model="user" required />
+              </md-field>
+            </div>
+                        <div class="md-layout-item md-small-size-100">
+              <md-field>
+                <label for="last-name">Email</label>
+                <md-input type="email" required name="last-name" id="last-name" v-model="email" />
+              </md-field>
+            </div>
+          </div>
+                    <md-field >
+            <label for="email">Password</label>
+            <md-input type="password" required name="email" id="email"  v-model="password"/>
+          </md-field>
+        </md-card-content>
+                <md-card-actions>
+          <md-button type="submit" class="md-primary">Register</md-button>
+        </md-card-actions>
+      </md-card>
+             <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
+      <span>{{response.msg}}</span>
+    </md-snackbar>
+    </form>
   </div>
 </template>
 
@@ -28,12 +46,16 @@ export default {
     password: '',
     email: '',
     response:{msg:''},
+        showSnackbar: false,
+    position: 'center',
+    duration: 4000,
+    isInfinity: false
     })
   },
   methods: {
           async clickHandler() {
             event.preventDefault()
-          const myURL = `https://storeapiexpress-fpckhcjnky.now.sh/users/`
+          const myURL = `https://storeapiexpress-ogmfmfnhzk.now.sh/users/`
           const reqContent = {
             method: "POST",
             headers: {"Content-Type": "application/json; charset=utf-8"},
@@ -44,6 +66,7 @@ export default {
               .then(res => {return res.json()})
               .then ( res => {
                this.response = res})
+               .then(this.showSnackbar=true)
               .catch ()
 
       this.user =''
@@ -76,13 +99,14 @@ export default {
 
 <style lang="scss">
 .centered-container {
+  font-family: 'Raleway', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   height: 100vh;
-  .tite {
-    text-allign: center;
+  .title {
+    text-align: center;
     margin-bottom: 30px;
     img {
       margin-bottom: 16px;
@@ -93,9 +117,6 @@ export default {
     .md-button{
       margin: 0;
     }
-  }
-  .form {
-    margin-botom: 60px;
   }
   .background {
     position: absolute;
@@ -127,4 +148,24 @@ export default {
     justify-content: center;
   }
 }
+  .md-progress-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+  .md-title {
+    color: #77ccfc;
+  }
+  .md-button {
+    color: #77ccfc;
+    margin: 0;
+  }
+  .md-card-content {
+    color: #77ccfc;
+  }
+  .md-card {
+    width: 100em;
+    padding-left:50%em;
+  }
 </style>

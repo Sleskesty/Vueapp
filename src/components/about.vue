@@ -3,7 +3,7 @@
     <h2>Cody Debruin</h2>
     <h2>David Calderwood</h2>
     <h2>Sarah Puello</h2>
-    <h2><a href="https://nervous-poincare-b48e52.netlify.com/">Ryley Liston</a></h2>
+    <h2>Ryley Liston</h2>
   </div>
 </template>
 <script>
@@ -15,6 +15,7 @@ export default {
 
 <style scoped>
 .blueboi{
+  font-family: 'Raleway', sans-serif;
     background-color: rgba(46.7%, 80%, 98.8%, 0.7); 
     border-style: none;
     margin: 5em  10em;

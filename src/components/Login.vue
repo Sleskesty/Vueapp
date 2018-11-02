@@ -9,12 +9,12 @@
       <div class="form">
         <md-field>
           <label>Username</label>
-          <md-input v-model="login.username" autofocus></md-input>
+          <md-input required v-model="login.username" autofocus></md-input>
         </md-field>
 
         <md-field md-has-password>
           <label>Password</label>
-          <md-input v-model="login.password" type="password"></md-input>
+          <md-input required v-model="login.password" type="password"></md-input>
         </md-field>
       </div>
 
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 export default {
   name: "App",
   computed: {
@@ -44,11 +44,13 @@ export default {
       loading: false,
       login: {
         username: "",
-        password: ""
+        password: "",
+        userIsLoggedIn: false
       }
     };
   },
   methods: {
+    ...mapActions(['logOn', 'setUser']),
     auth() {
       // your code to login user
       // this is only for example of loading
@@ -57,19 +59,27 @@ export default {
         this.loading = false;
       }, 5000);
     },
-    onSubmit () {
-          const myURL = `https://storeapiexpress-fpckhcjnky.now.sh/users/login`
+    async onSubmit () {
+          let myURL = `https://storeapiexpress-ogmfmfnhzk.now.sh/users/login`
           const reqContent = {
             method: "POST",
             headers: {"Content-Type": "application/json; charset=utf-8"},
             body: JSON.stringify({username: this.login.username, password: this.login.password})
           }
           let theReq = new Request(myURL, reqContent)
-          fetch(theReq) 
+          await fetch(theReq) 
               .then(res => {return res.json()})
               .then ( res => {
-               res})
-               .then (userIsLoggedIn = IsLoggedIn)
+               this.logOn(res)})
+              .catch ()
+
+              myURL = `https://storeapiexpress-ogmfmfnhzk.now.sh/users/${this.login.username}`
+
+          await fetch(myURL) 
+              .then(res => {return res.json()})
+              .then ( res => {
+               this.setUser(res.msg)})
+               .then (this.$router.push('/'))
               .catch ()
 
     }
@@ -79,6 +89,7 @@ export default {
 
 <style lang="scss">
 .centered-container {
+  font-family: 'Raleway', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,6 +98,7 @@ export default {
   .title {
     text-align: center;
     margin-bottom: 30px;
+    color: #77ccfc;
     img {
       margin-bottom: 16px;
       max-width: 80px;
@@ -95,6 +107,7 @@ export default {
   .actions {
     .md-button {
       margin: 0;
+      color: #77ccfc;
     }
   }
   .form {
@@ -116,6 +129,7 @@ export default {
     width: 100%;
     max-width: 400px;
     position: relative;
+    color: #77ccfc;
   }
   .loading-overlay {
     z-index: 10;

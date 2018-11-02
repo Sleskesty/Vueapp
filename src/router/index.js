@@ -13,6 +13,7 @@ import products from '@/components/products'
 import cart from '@/components/cart'
 import orders from '@/components/orders'
 import {mapState} from 'vuex'
+import ContentManager from '@/components/ContentManager'
 Vue.use(VueMaterial)
 Vue.use(Router)
 Vue.use(MdToolbar)
@@ -45,13 +46,11 @@ export default new Router({
     path:'/login',
     name: 'login',
     component:login,
-    meta: {isLoggedIn: true}
   },
   {
     path: '/register',
     name:'register',
     component: register,
-    meta: {isLoggedIn: true}
   },
   {
     path: '/products',
@@ -67,6 +66,11 @@ export default new Router({
   path:'/orders',
   name: 'orders',
   component: orders
+},
+{
+  path: '/ContentManager',
+  name: 'ContentManager',
+  component: ContentManager
 }
   ]
 })

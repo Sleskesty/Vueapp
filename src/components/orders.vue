@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="text">
         <md-table>
       <md-table-row>
         <md-table-head md-numeric>Name</md-table-head>
@@ -27,3 +27,11 @@ export default {
     }   
 }
 </script> 
+<style scoped>
+.text {
+  font-family: 'Raleway', sans-serif;
+}
+.color{
+  color: #77ccfc;
+}
+</style>

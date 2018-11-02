@@ -2,9 +2,9 @@
   <div id="productlist">
     <md-table v-model="productLine" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
     <md-table-toolbar>
-        <h1 class="md-title">Product Managment</h1>
+        <h1 class="md-title">User Manager</h1>
 
-        <CreateCard v-on:pleaserefresh="Clicked"/>
+        <CreateCard v-on:pleaserefresh="Clicked" />
         
         <md-field md-clearable class="md-toolbar-section-end">
           <md-icon>search</md-icon>
@@ -13,14 +13,13 @@
 
     </md-table-toolbar>
 
+     
        <md-table-row slot="md-table-row" slot-scope="{ item }">
-         <md-table-cell md-label="Name" md-sort-by="name" md-numeric>{{ item.name }}</md-table-cell>
-         <md-table-cell md-label="Description" >{{ item.desc }}</md-table-cell>
-         <md-table-cell md-label="Price" md-sort-by="price">{{ item.price }}</md-table-cell>
-         <md-table-cell md-label="pid">{{ item._id }}</md-table-cell>
+         <md-table-cell md-label="Username" md-sort-by="name" md-numeric>{{ item.username }}</md-table-cell>
+         <md-table-cell md-label="Email Address" md-sort-by="name">{{ item.emailaddress }}</md-table-cell>
              <md-table-cell class="buttoncell"> 
 
-                 <UpdateCard :product='item' v-on:pleaserefresh="Clicked"/>
+                 <UpdateCard :user='item' v-on:pleaserefresh="Clicked"/>
 
              </md-table-cell>  
              <md-table-cell class="buttoncell"> 
@@ -37,12 +36,12 @@
 </template>
 
 <script>
-import { API_URL } from '../main.js'
-import CreateCard from './CreateItem.vue'
-import DeleteCard from './DeleteItem.vue'
-import UpdateCard from './UpdateItem.vue'
+import { API_URL } from '../../main.js'
+import CreateCard from './CreateUser.vue'
+import DeleteCard from './DeleteUser.vue'
+import UpdateCard from './UpdateUser.vue'
 export default {
-  name: 'product-list',
+  name: 'user-list',
   components: {
     CreateCard,
     UpdateCard,
@@ -52,22 +51,22 @@ export default {
    return { productLine: [], valfriend:""}
   },
   methods: {
-    Clicked () {
-        const myURL = `${API_URL}/products/`
-        fetch(myURL) 
+   async Clicked () {
+        const myURL = `${API_URL}/users/`
+      await  fetch(myURL) 
             .then(res => {return res.json()})
             .then ( res => {
-                this.productLine = res
+                this.productLine = res.msg
             })
             .catch (this.productLine = [])
     },
   },
   mounted () {
-    const myURL = `${API_URL}/products/`
+    const myURL = `${API_URL}/users/`
     fetch(myURL) 
         .then(res => {return res.json()})
         .then ( res => {
-            this.productLine = res
+            this.productLine = res.msg
         })
         .catch ();
   }

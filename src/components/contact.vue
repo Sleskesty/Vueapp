@@ -13,6 +13,7 @@ export default {
 
 <style scoped>
 .blueboi{
+    font-family: 'Raleway', sans-serif;
     background-color: rgba(46.7%, 80%, 98.8%, 0.7); 
     border-style: none;
     margin: 5em  10em;

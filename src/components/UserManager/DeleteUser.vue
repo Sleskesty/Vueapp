@@ -2,8 +2,8 @@
     <div>
         <md-dialog-confirm
         :md-active.sync="active"
-        md-title="Are you sure you want to delete this product?"
-        :md-content='prodname + " will be deleted."'
+        md-title="Are you sure you want to delete this user?"
+        md-content='User will be deleted.'
         md-confirm-text="Confirm"
         md-cancel-text="Cancel"
         @md-cancel="onCancel"
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { API_URL } from '../main.js'
+import { API_URL } from '../../main.js'
 export default {
   name: 'DeleteCard',
   props: {
@@ -29,9 +29,9 @@ export default {
       return {active:false}
   },
   methods: {
-      async onConfirm () {
-        const myURL = `${API_URL}/products/${this.prodname}`
-       await fetch(myURL, {method:"delete"}).catch ();
+    async  onConfirm () {
+        const myURL = `${API_URL}/users/${this.prodname}/`
+     await   fetch(myURL, {method:"delete"}).catch ();
        this.$emit('pleaserefresh')
       },
       onCancel () {

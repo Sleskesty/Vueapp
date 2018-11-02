@@ -1,12 +1,16 @@
 <template>
   <div id="productlist">
-      <form>
-<input v-model="valfriend"/>
-<button v-on:click="Clicked">Search</button>
+   
+      <form @submit="Clicked">
+        <md-field >
+              <label>Search here...</label>
+      <md-input v-model="valfriend"></md-input>
+      <md-button type="submit"><md-icon>search</md-icon></md-button>
+    </md-field>
 </form>
     <div class="md-layout">
       <productcard class="md-layout-item" v-for="(item, index) in productLine" v-bind:key="index" v-bind:name="item"/>
-    </div>
+  </div>
   </div>
 </template>
 
@@ -23,9 +27,9 @@ export default {
   },
   methods: {
       ...mapActions(['addItem']),
-    Clicked (e) {
-        e.preventDefault();
-        const myURL = `https://storeapiexpress-fpckhcjnky.now.sh/products/${this.valfriend}`
+    Clicked () {
+        event.preventDefault();
+        const myURL = `https://storeapiexpress-ogmfmfnhzk.now.sh/products/${this.valfriend}`
         fetch(myURL) 
             .then(res => {return res.json()})
             .then ( res => {
@@ -35,7 +39,7 @@ export default {
     },
   },
   mounted () {
-    const myURL = `https://storeapiexpress-fpckhcjnky.now.sh/products `
+    const myURL = `https://storeapiexpress-ogmfmfnhzk.now.sh/products `
     fetch(myURL) 
         .then(res => {return res.json()})
         .then ( res => {
@@ -47,6 +51,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+
+#productlist {
+  font-family: 'Raleway', sans-serif;
+}
   .md-icon-button  {
     overflow-x:auto;
     border: 1px solid black 
