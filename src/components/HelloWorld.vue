@@ -19,7 +19,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .blueboi{
-    background-image: url("https://i.imgur.com/4QaiZXd.png");
+    background-image: url("https://lh3.googleusercontent.com/SOU5AWqzwCq0tCseysXuU_ugkcTIXIilXRR9foPY07ReW0ikV3wr1_gUZYenE-l20_Ya_4-jYp5j8oUGXRwAUQMNulmouOOJJcmRDDrxEXtI8DquPDI5zJ1n0Hmra0K1gSE1plYi4w=w2400");
     background-repeat:no-repeat;
     background-size: cover;
     border-style: none;
